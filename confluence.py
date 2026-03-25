@@ -1,3 +1,4 @@
+import base64
 import json
 import logging
 from typing import Any, Dict, Optional
@@ -84,9 +85,10 @@ class ConfluenceHandler:
 
     @staticmethod
     def _request(method: str, url: str, **kwargs) -> Dict:
-        logger.debug("Auth email: %r, token length: %d", Configuration.EMAIL, len(Configuration.API_TOKEN))
+        creds = f"{Configuration.EMAIL}:{Configuration.API_TOKEN}"
+        encoded = base64.b64encode(creds.encode()).decode()
         headers = {
-            "Authorization": f"Bearer {Configuration.API_TOKEN}",
+            "Authorization": f"Basic {encoded}",
             "Content-Type": "application/json",
         }
 
