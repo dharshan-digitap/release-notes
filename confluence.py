@@ -167,9 +167,9 @@ class ConfluenceHandler:
         return ConfluenceHandler._request("PUT", url, data=json.dumps(payload))
 
 
-    def process(self, _data: Dict, release_name: str) -> Dict:
+    def process(self, _data: Dict) -> Dict:
         body = self.build_page(_data)
-
+        release_name = _data.get("release", {}).get("metadata").get("release_name") or "Anonymous Release"
         existing = self._get_page_by_title(release_name)
 
         if existing:

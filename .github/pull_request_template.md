@@ -4,6 +4,7 @@
 ```yaml
 release:
   metadata:
+    release_name: ""                # Release name
     product_name: ""                # Product name
     software_release_author: ""     # Release owner
     software_release_version: ""    # Version tag

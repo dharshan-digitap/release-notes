@@ -36,7 +36,7 @@ def lambda_handler(event: Dict, _) -> Dict:
     action = body.get("action")
     pr = body.get("pull_request", {})
 
-    pr_title: str = pr.get("title", "Release")
+    # _: str = pr.get("title", "Release")
     pr_body: str = pr.get("body", "")
 
     # ── Process only edited + merged PRs ───────────────────────────────────
@@ -54,10 +54,7 @@ def lambda_handler(event: Dict, _) -> Dict:
         return {"statusCode": 422, "message": str(exc)}
 
     try:
-        result = ConfluenceHandler().process(
-            _data=parsed_data,
-            release_name=pr_title,
-        )
+        result = ConfluenceHandler().process(_data=parsed_data)
 
         return {
             "statusCode": 200,
