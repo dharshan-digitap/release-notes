@@ -169,20 +169,20 @@ class ConfluenceHandler:
 
     def process(self, _data: Dict) -> Dict:
         body = self.build_page(_data)
-        release_name = _data.get("release", {}).get("metadata").get("release_name") or "Anonymous Release"
+        release_name = _data.get("release", {}).get("release_name") or "Anonymous Release"
         existing = self._get_page_by_title(release_name)
 
         if existing:
             data = self._update_page(
-                existing["id"],
-                release_name,
-                body,
-                existing["version"]["number"],
+                page_id=existing["id"],
+                title=release_name,
+                body=body,
+                version=existing["version"]["number"],
             )
             action = "updated"
             page_id = existing["id"]
         else:
-            data = self._create_page(release_name, body)
+            data = self._create_page(title=release_name, body=body)
             action = "created"
             page_id = data.get("id")
 
