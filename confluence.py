@@ -50,7 +50,6 @@ class ConfluenceHandler:
         header = f"<h2>{heading}</h2>\n" if heading else ""
         return f"{header}<table><tbody>{rows}</tbody></table>"
 
-    # ...
 
     def build_page(self, data: Dict) -> str:
         r = data.get("release", {})
@@ -118,7 +117,6 @@ class ConfluenceHandler:
             raise ValueError(f"Missing '_links.webui': {data}")
         return f"{Configuration.BASE_URL}{links['webui']}"
 
-    # ...
 
     def _get_page_by_title(self, title: str) -> Optional[Dict]:
         url = f"{Configuration.BASE_URL}/rest/api/content"
@@ -168,7 +166,6 @@ class ConfluenceHandler:
 
         return ConfluenceHandler._request("PUT", url, data=json.dumps(payload))
 
-    # ...
 
     def process(self, _data: Dict, release_name: str) -> Dict:
         body = self.build_page(_data)
